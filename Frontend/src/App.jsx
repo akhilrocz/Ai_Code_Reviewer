@@ -25,23 +25,38 @@ export default function App() {
 }`);
 
   const [review, setReview] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     prism.highlightAll();
   });
 
   async function reviewCode() {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/ai/get-review`, {
-      code,
-    });
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/ai/get-review`,
+        {
+          code,
+        },
+      );
 
-    setReview(response.data);
+      setReview(response.data);
+    } catch (error) {
+      setReview(
+        "⚠️ Something went wrong while fetching the review. Please try again.",
+      );
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <>
       <main>
         <div className="left">
+          <div className="panel-header">Your Code</div>
           <div className="code">
             <Editor
               value={code}
@@ -62,14 +77,22 @@ export default function App() {
               }}
             />
             <div onClick={reviewCode} className="review">
-              Review
+              {loading ? "Reviewing..." : "Review"}
             </div>
           </div>
         </div>
 
         <div className="right">
+          <div className="panel-header">AI Review</div>
           <div className="markdown-wrapper">
-            <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
+            {review ? (
+              <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
+            ) : (
+              <p className="placeholder-text">
+                Your code review will appear here. Paste your code on the left
+                and click "Review".
+              </p>
+            )}
           </div>
         </div>
       </main>
