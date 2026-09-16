@@ -7,7 +7,7 @@ const cors = require('cors')
 const app = express();
 
 app.use(cors({
-  origin:'https://ai-code-reviewer-sable-five.vercel.app/'
+  origin:'https://ai-code-reviewer-sable-five.vercel.app'
 }))
 
 app.use(express.json());
