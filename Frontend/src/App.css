@@ -57,9 +57,48 @@ main .left .review{
   border-radius: 0.7rem;
   background-color: #290202;
 }
-
-pre, code {
+pre {
   white-space: pre-wrap !important;
-  display: block;
   text-align: left;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  overflow-x: auto;
+}
+
+code {
+  white-space: pre-wrap;
+  font-family: "Fira Code", monospace;
+}
+
+/* inline code only (not inside pre) */
+.markdown-wrapper :not(pre) > code {
+  /* background-color: #2d2d2d; */
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.3rem;
+  font-size: 0.9em;
+}
+
+
+.markdown-wrapper {
+  text-align: left;
+}
+
+.markdown-wrapper h1,
+.markdown-wrapper h2,
+.markdown-wrapper h3 {
+  margin: 1rem 0 0.5rem;
+  text-align: left;
+}
+
+.markdown-wrapper p,
+.markdown-wrapper li {
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.markdown-wrapper hr {
+  border-color: #666;
+  margin: 1rem 0;
 }
